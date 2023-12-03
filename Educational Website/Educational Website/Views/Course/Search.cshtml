@@ -1,0 +1,49 @@
+﻿@model List<Course>
+@{
+	var course = Model;
+	var bag = ViewBag.SearchString;
+	Layout = "_Layout2";
+}
+<h1> Search by name :</h1>
+<form asp-action="Search">
+	<div class="form-group">
+		<label>Search :</label>
+		<input type="text" name="SearchString" />
+		<input type="submit" asp-action="Search" value="Search" class="btn btn-primary" /><br />
+		@if (Model.Any())
+		{
+			<table class="table table-hover  table-bordered m-4 fw-bold table-striped">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Name</th>
+						<th>Grade</th>
+						<th>MinDegree</th>
+						<th>Department</th>
+					</tr>
+				</thead>
+				<tbody>
+					@for (int i = 0; i < course.Count; i++)
+					{
+						<tr>
+							<td>@(i + 1)</td>
+							<td>@course[i].Name</td>
+							<td>@course[i].Grade</td>
+							<td>@course[i].MinDegree</td>
+							<td>@(course[i].department?.Name ?? "Not Assign")</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+			<br />
+		}
+		else
+		{
+			<br>
+			<div class="alert alert-warning">There are no items!</div>
+		}
+	</div>
+</form>
+<br />
+<br />
+<div class="text-center"><a asp-action="Index" asp-fragment="#" class="btn btn-success">Return back</a></div>

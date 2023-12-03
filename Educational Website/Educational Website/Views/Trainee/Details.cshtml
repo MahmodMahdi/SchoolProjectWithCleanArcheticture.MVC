@@ -1,0 +1,27 @@
+﻿@model TraineeViewModel
+@{
+	var trainee = Model;
+	var Department = ViewBag.DeptName;
+	Layout = "_Layout2";
+}
+<div class="card card-header shadow text-center">
+	<h1 class="text-center border border-3 bg-dark" style="color:lightsteelblue">Selected Item</h1>
+	<div class="card shadow" style=" background-color:lightgray">
+		<div class="card-body text-center shadow">
+			<img class="align-self-center shadow" src="~/@trainee.ImageUrl" style="width:250px;margin-top:5px;border-radius:30px;" />
+			<h3 class="card-title p-3">Name :  @trainee.Name</h3>
+			<h5 class="card-text" style="color:blue">Address : @trainee.Address</h5>
+			<h5 class="card-text" style="color:blue">Level : @trainee.Level</h5>
+			<h5 class="card-text" style="color:blue">Phone Number : @trainee.PhoneNumber</h5>
+			<h4 class="card-text" style="color:blue">Department : @(Department?.Name ?? "Not Assign") </h4>
+			<div>
+				<a asp-action="Index" class="btn btn-dark fw-bold m-3">Return back</a>
+				@if (User.IsInRole("Admin"))
+				{
+					<a asp-action="Edit" asp-route-id="@trainee.Id" asp-fragment="#" class="btn btn-warning fw-bold">Edit</a>
+					<a asp-action="Delete" asp-route-id="@trainee.Id" asp-fragment="#" class="btn btn-danger fw-bold" onclick="return confirm('Are you Sure to delete ?')">Delete</a>
+				}
+			</div>
+		</div>
+	</div>
+</div>

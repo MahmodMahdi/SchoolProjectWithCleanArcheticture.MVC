@@ -1,0 +1,28 @@
+﻿@model DepartmentViewModel
+@{
+    Layout = "_Layout2";
+}
+<div class="card card-header">
+    <h1 class="text-center m-5" style="color:burlywood">Adding New Department</h1>
+    <form asp-action="Add" method="post">
+        <div>
+            <label asp-for="Name" class="m-1">Name</label>
+            <span asp-validation-for="Name" class="text-danger"></span>
+            <input asp-for="Name" class="form-control">
+        </div>
+        <div>
+            <label asp-for="DeptManager" class="m-1">Manager</label>
+            <span asp-validation-for="DeptManager" class="text-danger"></span>
+            <input asp-for="DeptManager" class="form-control">
+
+        </div><br />
+       
+        <div class="card-footer text-center">
+            <button class="btn btn-success w-25" asp-fragment="#">Add</button>
+            <a asp-action="Index" asp-fragment="#" class="btn btn-primary w-25">Cancel</a>
+        </div>
+    </form>
+</div>
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

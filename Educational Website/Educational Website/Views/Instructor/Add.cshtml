@@ -1,0 +1,67 @@
+﻿@model InstructorViewModel
+@{
+    SelectList Deptsitems = new SelectList(ViewBag.DeptName, "Id", "Name");
+    SelectList Coursesitems = new SelectList (ViewBag.CourseName, "Id", "Name");
+    Layout = "_Layout2";
+}
+    <div class="card card-header">
+        <h1 class="text-center m-5" style="color:burlywood">Adding New Instructor</h1>
+        <form asp-action="Add" method="post" enctype="multipart/form-data">
+            <div>
+                <label asp-for="Name" class="m-1">Name</label>
+                <span asp-validation-for="Name" class="text-danger"></span>
+                <input asp-for="Name" class="form-control">
+            </div>
+            <div>
+                <label asp-for="Address" class="m-1"></label>
+                <span asp-validation-for="Address" class="text-danger"></span>
+                <input asp-for="Address" class="form-control">
+            </div>
+        <div>
+            <label asp-for="PhoneNumber" class="m-1"></label>
+            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            <input asp-for="PhoneNumber" class="form-control">
+        </div>
+            <div>
+                <label asp-for="File" class="m-1"></label>
+                <span asp-validation-for="File" class="text-danger"></span>
+                <input type="file" name="File" asp-for="File" class="form-control">
+            </div>
+             <div>
+                <label asp-for="dept_id" class="m-1"></label>
+            <span asp-validation-for="dept_id" class="text-danger"></span>
+                <select name="dept_id" id="dept_id" class="form form-select" asp-for="dept_id" asp-items="Deptsitems" onchange="GetCourses()"> <option></option></select>
+               
+                <label asp-for="crs_id" class="m-1"></label>
+            <span asp-validation-for="crs_id" class="text-danger"></span>
+                <select class="form-select" asp-for="crs_id"  asp-items="Coursesitems" name="crs_id" id="crs_id"><option></option></select>
+            </div>
+            <div class="card-footer text-center">
+                <button class="btn btn-success w-25" asp-fragment="#">Add</button>
+                <a asp-action="Index" asp-fragment="#" class="btn btn-primary w-25">Cancel</a>
+            </div>
+        </form>
+    </div>
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        function GetCourses() {
+            var Dept_Id = document.getElementById("dept_id").value;
+            console.log(Dept_Id);
+            $.ajax(
+                {
+                    url: "/Course/GetCoursePerDepartment",
+                    data: { "DeptID": Dept_Id },
+                    success: function (result) {
+                        console.log(result);
+                        document.getElementById("crs_id").innerHTML = "";
+                        for (let course of result) {
+                            document.getElementById("crs_id").innerHTML +=
+                                "<option  value='" + course.id + "'>" + course.name + "</option>";
+                        }
+                    }
+                }
+            )
+        }
+    </script>
+}

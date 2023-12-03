@@ -1,0 +1,48 @@
+﻿@model TraineeViewModel
+@{
+    SelectList items = new SelectList(ViewBag.DeptDropDownList, "Id", "Name");
+    Layout = "_Layout2";
+}
+<div class="card card-header">
+    <h1 class="text-center m-5" style="color:burlywood">Update Trainee</h1>
+    <form asp-action="Edit" method="post" enctype="multipart/form-data">
+        <div>
+            <label asp-for="Name" class="m-1">Name</label>
+            <span asp-validation-for="Name" class="text-danger"></span>
+            <input asp-for="Name" class="form-control">
+        </div>
+        <div>
+            <label asp-for="Address" class="m-1"></label>
+            <span asp-validation-for="Address" class="text-danger"></span>
+            <input asp-for="Address" class="form-control">
+        </div>
+        <div>
+            <label asp-for="Level" class="m-1">Level</label>
+            <span asp-validation-for="Level" class="text-danger"></span>
+            <input asp-for="Level" class="form-control">
+        </div>
+        <div>
+            <label asp-for="PhoneNumber" class="m-1"></label>
+            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            <input asp-for="PhoneNumber" class="form-control">
+        </div>
+        <div>
+            <label asp-for="File" class="m-1"></label>
+            <span asp-validation-for="File" class="text-danger"></span>
+            <input type="file" name="File" asp-for="File" class="form-control">
+            <img class="img-thumbnail" src="~/@Model.ImageUrl" style="width:80px;margin-top:10px" />
+        </div>
+        <div>
+            <label asp-for="dept_id" class="m-1"></label>
+            <span asp-validation-for="dept_id" class="text-danger"></span>
+            <select class="form-select" asp-for="dept_id" asp-items="items"><option></option></select>
+        </div><br />
+        <div class="card-footer text-center">
+            <button class="btn btn-success w-25" asp-fragment="#" onclick="return confirm('Are you Sure to Update ?')">Update</button>
+            <a asp-action="Index" asp-fragment="#" class="btn btn-primary w-25">Cancel</a>
+        </div>
+    </form>
+</div>
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

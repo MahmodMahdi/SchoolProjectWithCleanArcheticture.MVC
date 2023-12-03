@@ -1,0 +1,23 @@
+﻿@model DepartmentViewModel
+@{
+	var departmentVM = Model;
+	Layout = "_Layout2";
+}
+<div class="card card-header shadow">
+
+	<h1 class="text-center border border-3 bg-dark" style="color:lightgreen">Selected Item</h1>
+	<div class="card shadow">
+		<div class="card-body text-center shadow"  style="background-color:lightgrey">
+			<h2 class="card-title p-3" style="color:indigo">Department :  @departmentVM.Name</h2>
+			<h3 class="card-title p-3" style="color:darkslategray">Manager :  @departmentVM.DeptManager</h3>
+			<div>
+				<a asp-action="Index" asp-fragment="#" class="btn btn-dark fw-bold m-3">Return back</a>
+				 @if (User.IsInRole("Admin"))
+				{
+					<a asp-action="Edit" asp-route-id="@departmentVM.Id" asp-fragment="#" class="btn btn-warning fw-bold">Edit</a>
+					<a asp-action="Delete" asp-route-id="@departmentVM.Id" asp-fragment="#" class="btn btn-danger fw-bold" onclick="return confirm('Are you Sure to delete ?')">Delete</a>
+				}
+			</div>
+		</div>
+	</div>
+</div>

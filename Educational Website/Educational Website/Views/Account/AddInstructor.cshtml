@@ -1,0 +1,78 @@
+﻿@model BusinessLogicLayer.ViewModels.RegisterUserViewModel
+@{
+	ViewData["Title"] = "AddInstructor";
+	Layout = "_Layout3";
+}
+<link rel="stylesheet" href="~/css/register.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<div class="text-center fw-bold"><h2> Instructor</h2></div>
+<div class="container">
+	<div class="title">Registration</div>
+	<div class="content">
+		<form asp-action="AddInstructor">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<div class="user-details">
+				<div class="input-box">
+					<span class="details">FirstName</span>
+					<input asp-for="FirstName" type="text" placeholder="Enter your username">
+					<span asp-validation-for="FirstName" class="text-danger"></span>
+				</div>
+				<div class="input-box">
+					<span class="details">Lastname</span>
+					<input asp-for="LastName" type="text" placeholder="Enter your username">
+					<span asp-validation-for="LastName" class="text-danger"></span>
+				</div>
+				<div class="input-box">
+					<span class="details">BirthDate</span>
+					<input asp-for="BirthDate" class="form-control">
+					<span asp-validation-for="BirthDate" class="text-danger"></span>
+				</div>
+				<div class="input-box">
+					<span class="details">Gender</span>
+					<Select asp-for="Gender" class="form-check">
+						<option value=0>--- Select Gender --- </option>
+						<option value="Male">Male</option>
+						<option value="Female">Female</option>
+						<option value="Other">Other</option>
+					</Select>
+					<span asp-validation-for="Gender" class="text-danger"></span>
+				</div>
+				<div class="input-box">
+					<span class="details">Phone Number</span>
+					<input asp-for="PhoneNumber" type="text" placeholder="Enter your phone number">
+					<span asp-validation-for="PhoneNumber" class="text-danger"></span>
+				</div>
+				<div class="input-box">
+					<span class="details">Address</span>
+					<input asp-for="Address" type="text" placeholder="Enter your address">
+					<span asp-validation-for="Address" class="text-danger"></span>
+				</div>
+				<div class="input-box">
+					<span class="details">Email</span>
+					<input asp-for="Email" type="text" placeholder="Enter your email">
+					<span asp-validation-for="Email" class="text-danger"></span>
+				</div>
+				<div class="input-box">
+					<span class="details">Password</span>
+					<input asp-for="Password" placeholder="Enter your password">
+					<span asp-validation-for="Password" class="text-danger"></span>
+				</div>
+				<div class="input-box">
+					<span class="details">Confirm Password</span>
+					<input asp-for="ConfirmPassword" placeholder="Confirm your password">
+					<span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+				</div>
+			</div>
+
+			<div class="button">
+				<input type="submit" value="Register">
+			</div>
+		</form>
+	</div>
+</div>
+
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}

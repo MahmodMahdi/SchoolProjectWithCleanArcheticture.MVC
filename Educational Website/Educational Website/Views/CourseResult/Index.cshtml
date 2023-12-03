@@ -1,0 +1,73 @@
+﻿@model List<CourseResult>
+@{
+	var courseResult = Model;
+	Layout = "Course";
+}
+<hr />
+<h2 class="text-center" id="#">@courseResult.Count Results</h2>
+<hr>
+@if (!Model.Any())
+{
+	<div class="alert alert-warning">Nothing added yet!</div>
+	@if (User.IsInRole("Admin") || User.IsInRole("Instructor"))
+	{
+		<div class="text-center ">
+			<a asp-action="Add" class="bi bi-pen btn btn-success">Add new Result</a>
+		</div>
+	}
+}
+else
+{
+	<div class="container-xl">
+		<div class="table-responsive">
+			<div class="table-wrapper">
+				<table class="table table-hover  table-bordered m-4 fw-bold table-striped" style="background-color:lightgray">
+					<tr>
+						<th colspan="4"> <h2 style="color:darkred">Manage Results</h2></th>
+						<th>
+							@if (User.IsInRole("Admin") || User.IsInRole("Instructor"))
+							{
+								<div class="text-center">
+									<a asp-action="Search" class="btn fw-bold btn-outline-dark">Search</a>
+									<a asp-action="Add" class="bi bi-pen btn btn-success">Add new Result</a>
+								</div>
+							}
+						</th>
+					</tr>
+					<tr style="font-size:17px">
+						<th class="text-center">#</th>
+						<th class="text-center">Trainee</th>
+						<th class="text-center">Course</th>
+						<th class="text-center">Degree</th>
+						<th colspan="2" class="text-center">Action</th>
+					</tr>
+					@for (int i = 0; i < courseResult.Count; i++)
+					{
+						<tr class="text-center">
+							<td>@courseResult[i].trainee_id</td>
+							<td><a style="font-family:Courier New, Courier, monospace ;color:brown" asp-controller="Trainee" asp-action="Details" asp-route-id="@courseResult[i].Trainee?.Id">@courseResult[i].Trainee?.Name</a></td>
+							<td><a style="font-family:Courier New, Courier, monospace;;color:brown" asp-controller="Course" asp-action="Details" asp-route-id="@courseResult[i].Course?.Id" style="background-color:cadetblue">@courseResult[i].Course?.Name</a></td>
+
+							@if (courseResult[i].Degree >= 60)
+							{
+								<td style="color:darkgreen">@courseResult[i].Degree %</td>
+							}
+							else
+							{
+								<td style="color:red">@courseResult[i].Degree %</td>
+							}
+							<td>
+								@if (User.IsInRole("Admin") || User.IsInRole("Instructor"))
+								{
+									<a asp-action="Edit" asp-route-id="@courseResult[i].Id" class="bi bi-pencil btn btn-warning btn-sm" aria-hidden="true">Edit</a>
+									<a asp-action="Delete" asp-route-id="@courseResult[i].Id" asp-fragment="#" class="bi bi-trash btn btn-danger btn-sm" aria-hidden="true" onclick="return confirm('Are you Sure to delete ?')">Delete</a>
+								}
+							</td>
+						</tr>
+					}
+				</table>
+			</div>
+		</div>
+	</div>
+}
+			﻿

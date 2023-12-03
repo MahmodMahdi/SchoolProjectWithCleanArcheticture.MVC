@@ -1,0 +1,61 @@
+﻿@model CourseViewModel
+@{
+	var courses = ViewBag.courses;
+	var departments = ViewBag.depts;
+	SelectList items = new SelectList(ViewBag.DeptDropDownList, "Id", "Name");
+	Layout = "_Layout2";
+}
+<div class="card card-header">
+	<h1 class="text-center m-5" style="color:burlywood">Update Course</h1>
+	<form asp-action="Edit" method="post">
+		<div>
+			<label asp-for="Name" class="m-1">Name</label>
+			<span asp-validation-for="Name" class="text-danger"></span>
+			<input asp-for="Name" class="form-control">
+		</div>
+		<div>
+			<label asp-for="Grade" class="m-1"></label>
+			<span asp-validation-for="Grade" class="text-danger"></span>
+			<input asp-for="Grade" class="form-control">
+		</div>
+		<div>
+			<label asp-for="MinDegree" class="m-1"></label>
+			<span asp-validation-for="MinDegree" class="text-danger"></span>
+			<input asp-for="MinDegree" class="form-control">
+		</div>
+		<div>
+			<label asp-for="dept_id" class="m-1"></label>
+			<span asp-validation-for="dept_id" class="text-danger"></span>
+			<select name="dept_id" id="dept_id" class="form form-select" asp-for="dept_id" asp-items="items"><option></option></select>
+			@* <select name="instructors" id="instructors" class="form form-control"><option value=0>- InstructorsOfChoosenDepartment -</option></select>*@
+		</div><br />
+		<div class="card-footer text-center">
+			<button class="btn btn-success w-25" asp-fragment="#" onclick="return confirm('Are you Sure to Update ?')">Update</button>
+			<a asp-action="Index" asp-fragment="#" class="btn btn-primary w-25">Cancel</a>
+		</div>
+	</form>
+</div>
+@section Scripts
+	{
+	<partial name="_ValidationScriptsPartial" />
+	@* <script>
+        function GetInstructor() {
+            var Dept_Id = document.getElementById("dept_id").value;
+            console.log(Dept_Id);
+            $.ajax(
+                {
+                    url: "/Department/GetInstructorPerDepartment",
+                    data: { "DeptID": Dept_Id },
+                    success: function (result) {
+                        console.log(result);
+                        document.getElementById("instructors").innerHTML = "";
+                        for (let instructor of result) {
+                            document.getElementById("instructors").innerHTML +=
+                                "<option  value='" + instructor.id + "'>" + instructor.name + "</option>";
+                        }
+                    }
+                       }
+            )
+        }
+    </script>*@
+}

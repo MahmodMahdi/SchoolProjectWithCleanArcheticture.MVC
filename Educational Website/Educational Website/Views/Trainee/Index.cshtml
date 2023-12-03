@@ -1,0 +1,60 @@
+﻿@model List<Trainee>
+@{
+	ViewData["Title"] = "Index";
+	var Trainee = Model;
+	Layout = "MyLayout";
+}
+<hr>
+<h2 class="text-center" id="#">@Trainee.Count Trainee</h2>
+<hr>
+@if (!Model.Any())
+{
+	<div class="alert alert-warning">Nothing added yet!</div>
+	@if (User.IsInRole("Admin"))
+	{
+		<div class="text-center"><a asp-action="Add" class="bi bi-pen btn btn-success">Add new Trainee</a></div>
+	}
+}
+else
+{
+	<div class="container-xl">
+		<div class="table-responsive">
+			<div class="table-wrapper">
+				<table class="table table-hover  table-bordered m-4 fw-bold table-striped">
+					<tr style="background-color:lightgray;">
+						<th colspan="2"> <h2 style="color:darkred">Manage Trainees</h2></th>
+						<th>
+							@if (User.IsInRole("Admin"))
+							{
+								<div class="text-center">
+									<a asp-action="Search" class="btn fw-bold btn-outline-dark">Search</a>
+									<a asp-action="Add" class="bi bi-pen btn btn-success">Add new Trainee</a>
+								</div>
+							}
+						</th>
+					</tr>
+					<tr style="border-bottom:3px">
+						<th class="text-center"><h4>#</h4></th>
+						<th class="text-center"><h4>Name</h4></th>
+						<th colspan="3" class="text-center"><h4>Action</h4></th>
+					</tr>
+					@for (int i = 0; i < Trainee.Count; i++)
+					{
+						<tr class="text-center">
+							<td>@(i + 1)</td>
+							<td><a asp-controller="CourseResult" asp-action="Results" asp-fragment="#" asp-route-id="@Trainee[i]?.Id">@Trainee[i].Name</a></td>
+							<td>
+								<a asp-action="Details" asp-route-id="@Trainee[i].Id" class="bi bi-tag btn  btn-sm" style="background-color:cornflowerblue">Details</a>
+								@if (User.IsInRole("Admin"))
+								{
+									<a asp-action="Edit" asp-route-id="@Trainee[i].Id" class="bi bi-pencil btn btn-warning btn-sm" aria-hidden="true">Edit</a>
+									<a asp-action="Delete" asp-route-id="@Trainee[i].Id" asp-fragment="#" class="bi bi-trash btn btn-danger btn-sm" aria-hidden="true" onclick="return confirm('Are you Sure to delete ?')">Delete</a>
+								}
+							</td>
+						</tr>
+					}
+				</table>
+			</div>
+		</div>
+	</div>
+}

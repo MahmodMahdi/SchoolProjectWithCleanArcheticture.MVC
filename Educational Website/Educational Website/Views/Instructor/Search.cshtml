@@ -1,0 +1,40 @@
+﻿@model List<Instructor>
+@{
+	var instructors = Model;
+	Layout = "_Layout2";
+}
+<h1> Search by name :</h1>
+<form asp-action="Search">
+	<div class="form-group">
+		<input type="text" name="searchString" />
+		<input type="submit" asp-action="Search" value="Search" class="btn btn-primary" /><br /><br />
+	    @if (Model.Any())
+		{
+			<hr />
+			<div class="text-center fw-bold"><h2>Search Result :</h2></div>
+			@for (int i = 0; i < instructors.Count; i++)
+			{
+				<div class="card shadow">
+
+					<div class="card-body text-center shadow" style="background-color:lightgrey">
+						<img class="align-self-center shadow" src="~/@instructors[i].ImageUrl" style="width:100px;margin-top:5px;border-radius:5px;height:200px" />
+						<h3 class="card-title p-3">Name : @instructors[i].Name</h3>
+						<h5 class="card-text" style="color:darkblue">Address : @instructors[i].Address</h5>
+						<h4 class="card-text" style="color:blue">PhoneNumber : @instructors[i].PhoneNumber </h4>
+						<h4 class="card-text" style="color:blue">Department : @instructors[i].department?.Name</h4>
+						<h4 class="card-text" style="color:blue">Course : @instructors[i].course?.Name</h4>
+					</div>
+				</div>
+			}
+			<br /><hr /><br />
+		}
+		else
+		{
+			<br />	<div class="alert alert-warning">There are no items!</div>
+		}
+	</div>
+</form>
+<br /><br /><br />
+<div class="text-center">
+	<a asp-action="Index" asp-fragment="#" class="btn btn-success">Return back</a>
+</div>

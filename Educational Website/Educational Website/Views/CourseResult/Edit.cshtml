@@ -1,0 +1,36 @@
+﻿@model CourseResultViewModel
+@{
+    SelectList Traineeitems = new SelectList(ViewBag.TraineeName, "Id", "Name");
+    SelectList Coursesitems = new SelectList(ViewBag.CourseName, "Id", "Name");
+    Layout = "_Layout2";
+}
+<div class="card card-header">
+    <h1 class="text-center m-5" style="color:burlywood">Updating TraineeResult</h1>
+    <form asp-action="Edit" method="post">
+        <div>
+            <label asp-for="trainee_id" class="m-1"></label>
+            <span asp-validation-for="trainee_id" class="text-danger"></span>
+            <select class="form-select" asp-for="trainee_id" asp-items="Traineeitems"></select>
+        </div>
+        <div>
+            <label asp-for="crs_id" class="m-1"></label>
+            <span asp-validation-for="crs_id" class="text-danger"></span>
+            <select class="form-select" asp-for="crs_id" asp-items="Coursesitems"></select>
+        </div>
+
+        <div>
+            <label asp-for="Degree" class="m-1"></label>
+			<span asp-validation-for="Degree" class="text-danger"></span>
+            <input asp-for="Degree" class="form-control">
+        </div><br />
+
+        <div class="card-footer text-center">
+            <button class="btn btn-success w-25" asp-fragment="#" onclick="return confirm('Are you Sure to Update ?')">Update</button>
+            <a asp-action="ShowAll" asp-fragment="#" class="btn btn-primary w-25">Cancel</a>
+        </div>
+
+    </form>
+</div>
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}
